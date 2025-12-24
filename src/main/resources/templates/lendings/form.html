@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Выдача книги</title>
+</head>
+<body>
+
+<!-- Уведомления -->
+<div th:if="${successMessage}" class="msg-alert msg-success" th:text="${successMessage}"></div>
+<div th:if="${errorMessage}" class="msg-alert msg-error" th:text="${errorMessage}"></div>
+
+<nav class="header-nav">
+    <a href="/" class="logo">БИБЛИОТЕКА</a>
+    <div class="nav-links">
+        <a th:href="@{/readers}">Читатели</a>
+        <a th:href="@{/books}">Книги</a>
+        <a th:href="@{/lendings}">История выдач</a>
+    </div>
+</nav>
+
+<h1>Выдать книгу</h1>
+
+<form th:action="@{/lendings}" method="post">
+
+    <label>Читатель:</label>
+    <select name="readerId" required>
+        <option value="">-- выберите читателя --</option>
+        <option th:each="r : ${readers}"
+                th:value="${r.id}"
+                th:text="${r.lastName}">
+        </option>
+    </select>
+
+    <br><br>
+
+    <label>Книга:</label>
+    <select name="bookId" required>
+        <option value="">-- выберите книгу --</option>
+        <option th:each="b : ${books}"
+                th:value="${b.id}"
+                th:text="${b.name}">
+        </option>
+    </select>
+
+    <br><br>
+
+    <button type="submit">Выдать</button>
+</form>
+
+<!--<p>Readers size: <span th:text="${readers.size()}"></span></p>-->
+<!--<p>Books size: <span th:text="${books.size()}"></span></p>-->
+<!--<br>-->
+<a href="/lendings">← Назад</a>
+
+</body>
+</html>

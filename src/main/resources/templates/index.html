@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная - Библиотека 2025</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/index-style.css}">
+</head>
+<body>
+
+<!-- Навигация -->
+<nav class="header-nav">
+    <a href="/" class="logo">БИБЛИОТЕКА</a>
+    <div class="nav-links">
+        <a th:href="@{/readers}">Читатели</a>
+        <a th:href="@{/books}">Книги</a>
+        <a th:href="@{/lendings}">История выдач</a>
+    </div>
+</nav>
+
+<div class="main-container">
+
+    <!-- Уведомления -->
+    <div th:if="${successMessage}" class="msg-alert msg-success" th:text="${successMessage}"></div>
+    <div th:if="${errorMessage}" class="msg-alert msg-error" th:text="${errorMessage}"></div>
+
+    <!-- Блок операций (в одну строку) -->
+    <div class="operations-row">
+
+        <!-- Выдача -->
+        <div class="op-card issue-box">
+            <h3 class="card-title">Выдать книгу</h3>
+            <form th:action="@{/lending/issue}" method="post">
+                <label>Читатель</label>
+                <select name="readerId" required>
+                    <option value="" disabled selected>Выберите читателя...</option>
+                    <option th:each="r : ${readers}" th:value="${r.id}"
+                            th:text="${r.readersTicket + ': ' + r.lastName}"></option>
+                </select>
+
+                <label>Книга</label>
+                <select name="bookId" required>
+                    <option value="" disabled selected>Выберите книгу...</option>
+                    <option th:each="b : ${books}" th:value="${b.id}" th:text="${b.name}"></option>
+                </select>
+                <button type="submit" class="btn-submit btn-blue">Зафиксировать выдачу</button>
+            </form>
+        </div>
+
+        <!-- Возврат -->
+        <div class="op-card return-box">
+            <h3 class="card-title">Принять книгу</h3>
+            <form th:action="@{/lending/return}" method="post">
+                <label>Активные выдачи</label>
+                <select name="lendingId" required>
+                    <option value="" disabled selected>Выберите запись...</option>
+                    <option th:each="l : ${activeLendings}" th:value="${l.id}"
+                            th:text="${l.book.name + ' ➔ ' + l.reader.lastName}"></option>
+                </select>
+                <button type="submit" class="btn-submit btn-green">Подтвердить возврат</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Сводка (снизу в одну строчку) -->
+    <div class="stats-row">
+        <div class="stat-item">
+            <span>Читателей:</span>
+            <strong th:text="${readers.size()}">0</strong>
+        </div>
+        <div class="stat-item">
+            <span>Книг:</span>
+            <strong th:text="${books.size()}">0</strong>
+        </div>
+        <div class="stat-item">
+            <span>На руках:</span>
+            <strong class="text-blue" th:text="${activeLendings.size()}">0</strong>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить читателя</title>
+</head>
+<body>
+
+<h1>Новый читатель</h1>
+
+<!-- Уведомления -->
+<div th:if="${successMessage}" class="msg-alert msg-success" th:text="${successMessage}"></div>
+<div th:if="${errorMessage}" class="msg-alert msg-error" th:text="${errorMessage}"></div>
+
+<form th:action="@{/readers}" th:object="${reader}" method="post">
+
+    <div>
+        <label>Номер билета:</label><br>
+        <input type="text" th:field="*{readersTicket}">
+        <div th:if="${#fields.hasErrors('readersTicket')}"
+             th:errors="*{readersTicket}"></div>
+    </div>
+
+    <div>
+        <label>Фамилия:</label><br>
+        <input type="text" th:field="*{lastName}">
+        <div th:if="${#fields.hasErrors('lastName')}"
+             th:errors="*{lastName}"></div>
+    </div>
+
+    <div>
+        <label>Имя:</label><br>
+        <input type="text" th:field="*{firstName}">
+        <div th:if="${#fields.hasErrors('firstName')}"
+             th:errors="*{firstName}"></div>
+    </div>
+
+    <div>
+        <label>Отчество:</label><br>
+        <input type="text" th:field="*{middleName}">
+        <div th:if="${#fields.hasErrors('middleName')}"
+             th:errors="*{middleName}"></div>
+    </div>
+
+    <div>
+        <label>Дата рождения:</label><br>
+        <input type="date" th:field="*{dateOfBirth}">
+        <div th:if="${#fields.hasErrors('dateOfBirth')}"
+             th:errors="*{dateOfBirth}"></div>
+    </div>
+
+    <div>
+        <label>Email:</label><br>
+        <input type="email" th:field="*{email}">
+        <div th:if="${#fields.hasErrors('email')}"
+             th:errors="*{email}"></div>
+    </div>
+
+    <div>
+        <label>Телефон:</label><br>
+        <input type="text" th:field="*{phone}">
+        <div th:if="${#fields.hasErrors('phone')}"
+             th:errors="*{phone}"></div>
+    </div>
+
+    <br>
+    <button type="submit">Сохранить</button>
+    <a th:href="@{/readers}">Отмена</a>
+
+</form>
+<a th:href="@{/readers}">Назад к списку</a>
+</body>
+</html>

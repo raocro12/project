@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!-- Уведомления -->
+<div th:if="${successMessage}" class="msg-alert msg-success" th:text="${successMessage}"></div>
+<div th:if="${errorMessage}" class="msg-alert msg-error" th:text="${errorMessage}"></div>
+
+<form th:action="@{/books}" th:object="${book}" method="post">
+
+    <div>
+        <label>ФИО Автора:</label><br>
+        <input type="text" th:field="*{author}">
+        <div th:if="${#fields.hasErrors('author')}"
+             th:errors="*{author}"></div>
+    </div>
+
+    <div>
+        <label>Жанр:</label><br>
+        <input type="text" th:field="*{genre}">
+        <div th:if="${#fields.hasErrors('genre')}"
+             th:errors="*{genre}"></div>
+    </div>
+
+    <div>
+        <label>Название книги:</label><br>
+        <input type="text" th:field="*{name}">
+        <div th:if="${#fields.hasErrors('name')}"
+             th:errors="*{name}"></div>
+    </div>
+
+    <div>
+        <label>Издательство:</label><br>
+        <input type="text" th:field="*{publishingHouse}">
+        <div th:if="${#fields.hasErrors('publishingHouse')}"
+             th:errors="*{publishingHouse}"></div>
+    </div>
+
+    <div>
+        <label>Дата публикации:</label><br>
+        <input type="text" th:field="*{yearOfPublication}">
+        <div th:if="${#fields.hasErrors('yearOfPublication')}"
+             th:errors="*{yearOfPublication}"></div>
+    </div>
+
+    <br>
+    <button type="submit">Сохранить</button>
+    <a th:href="@{/books}">Отмена</a>
+</form>
+<a href="/books">← Назад</a>
+</body>
+</html>

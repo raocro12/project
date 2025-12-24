@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>История выдач книг</title>
+</head>
+<body>
+
+<!-- Уведомления -->
+<div th:if="${successMessage}" class="msg-alert msg-success" th:text="${successMessage}"></div>
+<div th:if="${errorMessage}" class="msg-alert msg-error" th:text="${errorMessage}"></div>
+
+<nav class="header-nav">
+    <a href="/" class="logo">БИБЛИОТЕКА</a>
+    <div class="nav-links">
+        <a th:href="@{/readers}">Читатели</a>
+        <a th:href="@{/books}">Книги</a>
+        <a th:href="@{/lendings}">История выдач</a>
+    </div>
+</nav>
+
+<h1>История выдач книг</h1>
+
+<table border="1" cellpadding="5" cellspacing="0">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Читатель</th>
+        <th>Книга</th>
+        <th>Дата выдачи</th>
+        <th>Срок возврата</th>
+        <th>Дата возврата</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="lending : ${lendings}">
+        <td th:text="${lending.id}"></td>
+
+        <td th:text="${lending.reader.lastName + ' ' + lending.reader.firstName}"></td>
+
+        <td th:text="${lending.book.name}"></td>
+
+        <td th:text="${lending.dateOfIssue}"></td>
+        <td th:text="${lending.dateOfDue}"></td>
+        <td th:text="${lending.returnDate}"></td>
+
+        <td>
+            <a th:href="@{/lendings/edit/{id}(id=${lending.id})}">Редактировать</a> |
+            <a th:href="@{/lendings/delete/{id}(id=${lending.id})}"
+               onclick="return confirm('Вы уверены, что хотите удалить?');">Удалить</a>
+        </td>
+    </tr>
+    </tbody>
+
+</table>
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!-- Уведомления -->
+<div th:if="${successMessage}" class="msg-alert msg-success" th:text="${successMessage}"></div>
+<div th:if="${errorMessage}" class="msg-alert msg-error" th:text="${errorMessage}"></div>
+
+<form th:action="@{/lendings/edit/{id}(id=${lending.id})}" method="post">
+    <!-- Выбор читателя -->
+    <div class="mb-3">
+        <label class="form-label">Читатель</label>
+        <select name="readerId" class="form-select">
+            <option th:each="r : ${readers}"
+                    th:value="${r.id}"
+                    th:text="${r.readersTicket + ': ' +r.lastName + ' ' + r.firstName}"
+                    th:selected="${r.id == lending.reader.id}"></option>
+        </select>
+    </div>
+
+    <!-- Выбор книги -->
+    <div class="mb-3">
+        <label class="form-label">Книга</label>
+        <select name="bookId" class="form-select">
+            <option th:each="b : ${books}"
+                    th:value="${b.id}"
+                    th:text="${b.name}"
+                    th:selected="${b.id == lending.book.id}"></option>
+        </select>
+    </div>
+
+    <!-- Даты -->
+    <div class="mb-3">
+        <label class="form-label">Дата выдачи</label>
+        <input type="date" name="dateOfIssue" class="form-control" th:value="${lending.dateOfIssue}">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Дата возврата (если пуста - книга на руках)</label>
+        <input type="date" name="returnDate" class="form-control" th:value="${lending.returnDate}">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+    <a th:href="@{/lendings}" class="btn btn-secondary">Отмена</a>
+</form>
+<a href="/lendings">← Назад</a>
+</body>
+</html>

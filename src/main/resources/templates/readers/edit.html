@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование читателя</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<h1>Редактирование читателя</h1>
+
+<!-- Уведомления -->
+<div th:if="${successMessage}" class="msg-alert msg-success" th:text="${successMessage}"></div>
+<div th:if="${errorMessage}" class="msg-alert msg-error" th:text="${errorMessage}"></div>
+
+<form th:action="@{/readers/edit/{id}(id=${reader.id})}" th:object="${reader}" method="post">
+    <label>Читательский билет:</label>
+    <input type="text" th:field="*{readersTicket}" /><br/>
+
+    <label>Фамилия:</label>
+    <input type="text" th:field="*{lastName}" /><br/>
+
+    <label>Имя:</label>
+    <input type="text" th:field="*{firstName}" /><br/>
+
+    <label>Отчество:</label>
+    <input type="text" th:field="*{middleName}" /><br/>
+
+    <label>Дата рождения:</label>
+    <input type="date" th:field="*{dateOfBirth}" /><br/>
+
+    <label>Email:</label>
+    <input type="email" th:field="*{email}" /><br/>
+
+    <label>Телефон:</label>
+    <input type="text" th:field="*{phone}" /><br/>
+
+    <button type="submit">Сохранить</button>
+</form>
+
+<a th:href="@{/readers}">Назад к списку</a>
+</body>
+</html>

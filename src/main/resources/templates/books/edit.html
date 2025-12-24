@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Книги</title>
+</head>
+<body>
+
+<!-- Уведомления -->
+<div th:if="${successMessage}" class="msg-alert msg-success" th:text="${successMessage}"></div>
+<div th:if="${errorMessage}" class="msg-alert msg-error" th:text="${errorMessage}"></div>
+
+<form th:action="@{/books/edit/{id}(id=${book.id})}" th:object="${book}" method="post">
+    <label>Автор:</label>
+    <input type="text" th:field="*{author}" /><br/>
+
+    <label>Жанр:</label>
+    <input type="text" th:field="*{genre}" /><br/>
+
+    <label>Название книги:</label>
+    <input type="text" th:field="*{name}" /><br/>
+
+    <label>Издательство:</label>
+    <input type="text" th:field="*{publishingHouse}" /><br/>
+
+    <label>Год выпуска:</label>
+    <input type="text" th:field="*{yearOfPublication}" /><br/>
+
+    <button type="submit">Сохранить</button>
+</form>
+<a href="/books">← Назад</a>
+</body>
+</html>

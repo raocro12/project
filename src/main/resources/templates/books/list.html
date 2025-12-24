@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Книги</title>
+</head>
+<body>
+
+<nav class="header-nav">
+    <a href="/" class="logo">БИБЛИОТЕКА</a>
+    <div class="nav-links">
+        <a th:href="@{/readers}">Читатели</a>
+        <a th:href="@{/books}">Книги</a>
+        <a th:href="@{/lendings}">История выдач</a>
+    </div>
+</nav>
+
+<h1>Книги</h1>
+
+<!-- Уведомления -->
+<div th:if="${successMessage}" class="msg-alert msg-success" th:text="${successMessage}"></div>
+<div th:if="${errorMessage}" class="msg-alert msg-error" th:text="${errorMessage}"></div>
+
+<div class="container mt-3">
+    <!-- Блок для сообщения об ОШИБКЕ -->
+    <div th:if="${errorMessage}" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong th:text="${errorMessage}">Текст ошибки</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <!-- Блок для сообщения об УСПЕХЕ -->
+    <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong th:text="${successMessage}">Текст успеха</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</div>
+<table border="1" cellpadding="5" cellspacing="0">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Автор</th>
+        <th>жанр</th>
+        <th>Название</th>
+        <th>Издательство</th>
+        <th>Дата публикации</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book : ${books}">
+        <td th:text="${book.id}"></td>
+        <td th:text="${book.author}"></td>
+        <td th:text="${book.genre}"></td>
+        <td th:text="${book.name}"></td>
+        <td th:text="${book.publishingHouse} ?: '-'"></td>
+        <td th:text="${book.yearOfPublication}"></td>
+
+        <td>
+            <a th:href="@{/books/edit/{id}(id=${book.id})}">Редактировать</a> |
+            <a th:href="@{/books/delete/{id}(id=${book.id})}"
+               onclick="return confirm('Вы уверены, что хотите удалить?');">Удалить</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<a th:href="@{/books/new}">Добавить книгу</a>
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+<!--    <link rel="stylesheet" th:href="@{/css/readers-style.css}">-->
+    <title>Список читателей</title>
+</head>
+<body>
+
+<nav class="header-nav">
+    <a href="/" class="logo">БИБЛИОТЕКА</a>
+    <div class="nav-links">
+        <a th:href="@{/readers}">Читатели</a>
+        <a th:href="@{/books}">Книги</a>
+        <a th:href="@{/lendings}">История выдач</a>
+    </div>
+</nav>
+
+<div class="content-container">
+    <div class="header-row">
+        <h1>Читатели</h1>
+        <a th:href="@{/readers/new}" class="btn-action btn-green-light">Добавить читателя</a>
+    </div>
+
+    <!-- Уведомления -->
+    <div th:if="${successMessage}" class="msg-alert msg-success" th:text="${successMessage}"></div>
+    <div th:if="${errorMessage}" class="msg-alert msg-error" th:text="${errorMessage}"></div>
+
+    <!-- Форма поиска -->
+    <div class="search-box">
+        <form th:action="@{/readers/search}" method="get">
+            <input type="text" name="lastName" placeholder="Введите фамилию для поиска...">
+            <button type="submit" class="btn-search">Поиск</button>
+            <a th:href="@{/readers}" class="btn-reset">Сбросить</a>
+        </form>
+    </div>
+
+    <!-- Контейнер для центрирования таблицы -->
+    <div class="table-wrapper">
+        <table class="my-table" border="1" cellpadding="5" cellspacing="0">
+            <thead>
+            <tr>
+                <th>Билет</th>
+                <th>Фамилия</th>
+                <th>Имя</th>
+                <th>Дата рождения</th>
+                <th>Телефон</th>
+                <th>Действия</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="reader : ${readers}">
+                <td th:text="${reader.readersTicket}"></td>
+                <td th:text="${reader.lastName}"></td>
+                <td th:text="${reader.firstName}"></td>
+                <td th:text="${reader.dateOfBirth}"></td>
+                <td th:text="${reader.phone}"></td>
+                <td class="actions-cell">
+                    <a th:href="@{/readers/edit/{id}(id=${reader.id})}" class="btn-small btn-yellow">Изменить</a>
+                    <a th:href="@{/readers/delete/{id}(id=${reader.id})}"
+                       class="btn-small btn-red"
+                       onclick="return confirm('Вы уверены?');">Удалить</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
