@@ -11,6 +11,11 @@ import ru.study.my_project.model.Reader;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Репозиторий для работы с сущностью BookLending.
+ * Интерфейс предоставляет стандартные CRUD операции.
+ *
+ */
 @Repository
 public interface BookLendingRepository extends JpaRepository<BookLending, Long> {
 

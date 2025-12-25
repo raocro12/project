@@ -6,6 +6,11 @@ import ru.study.my_project.model.Book;
 
 import java.util.List;
 
+/**
+ * Репозиторий для работы с сущностью Book.
+ * Интерфейс предоставляет стандартные CRUD операции.
+ *
+ */
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
 

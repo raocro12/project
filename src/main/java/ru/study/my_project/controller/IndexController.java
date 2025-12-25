@@ -10,6 +10,29 @@ import ru.study.my_project.service.BookLendingService;
 import ru.study.my_project.service.BookService;
 import ru.study.my_project.service.ReaderService;
 
+ /**
+ * Контроллер главной страницы библиотечной системы.
+ *
+ * <p>
+ * Отвечает за отображение главной страницы и обработку основных
+ * пользовательских действий: выдачу и возврат книг.
+ * </p>
+ *
+ * <p>
+ * Контроллер взаимодействует со следующими сервисами:
+ * </p>
+ * <ul>
+ *     <li>{@link ru.study.my_project.service.ReaderService} — для получения списка читателей</li>
+ *     <li>{@link ru.study.my_project.service.BookService} — для получения списка книг</li>
+ *     <li>{@link ru.study.my_project.service.BookLendingService} — для управления выдачами книг</li>
+ * </ul>
+ *
+ * <p>
+ * Использует шаблонизатор Thymeleaf для отображения страницы
+ * {@code src/main/resources/templates/index.html}.
+ * </p>
+ *
+ */
 @Controller
 public class IndexController {
     private final BookLendingService bookLendingService;
@@ -22,21 +45,42 @@ public class IndexController {
         this.bookService = bookService;
     }
 
-    /**
-     * Отображение главной страницы (Dashboard)
-     */
+     /**
+      * Отображает главную страницу библиотечной системы.
+      *
+      * <p>
+      * Загружает:
+      * </p>
+      * <ul>
+      *     <li>список всех читателей</li>
+      *     <li>список всех книг</li>
+      *     <li>список активных выдач (не возвращённых книг)</li>
+      * </ul>
+      *
+      * @param model модель для передачи данных в представление
+      * @return имя HTML-шаблона главной страницы
+      */
     @GetMapping("/")
     public String mainPage(Model model) {
         model.addAttribute("readers", readerService.findAll());
         model.addAttribute("books", bookService.findAll());
-        // Используем новый метод сервиса для получения только активных записей
         model.addAttribute("activeLendings", bookLendingService.findActiveLendings());
-        return "index"; // Возвращаем шаблон src/main/resources/templates/index.html
+        return "index";
     }
 
-    /**
-     * Обработка выдачи книги с главной страницы
-     */
+     /**
+      * Обрабатывает выдачу книги читателю.
+      *
+      * <p>
+      * В случае успешной выдачи отображает сообщение об успехе.
+      * При возникновении ошибки отображает сообщение с описанием причины.
+      * </p>
+      *
+      * @param readerId идентификатор читателя
+      * @param bookId идентификатор книги
+      * @param redirectAttributes атрибуты для передачи сообщений после редиректа
+      * @return перенаправление на главную страницу
+      */
     @PostMapping("/lending/issue")
     public String issueBook(@RequestParam Long readerId, @RequestParam Long bookId, RedirectAttributes redirectAttributes) {
         try {
@@ -48,9 +92,17 @@ public class IndexController {
         return "redirect:/"; // Перенаправляем на главную страницу
     }
 
-    /**
-     * Обработка возврата книги с главной страницы
-     */
+     /**
+      * Обрабатывает возврат книги.
+      *
+      * <p>
+      * Устанавливает дату возврата книги и обновляет статус выдачи.
+      * </p>
+      *
+      * @param lendingId идентификатор записи выдачи книги
+      * @param redirectAttributes атрибуты для передачи сообщений после редиректа
+      * @return перенаправление на главную страницу
+      */
     @PostMapping("/lending/return")
     public String returnBook(@RequestParam Long lendingId, RedirectAttributes redirectAttributes) {
         try {
