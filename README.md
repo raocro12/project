@@ -11,29 +11,29 @@
 
 
 # Структура проекта
-├───src
-│   ├───main
-│   │   ├───java
-│   │   │   └───ru
-│   │   │       └───study
-│   │   │           └───my_project
-│   │   │               ├───controller
-│   │   │               ├───model
-│   │   │               ├───repository
-│   │   │               └───service
-│   │   └───resources
-│   │       ├───static
-│   │       │   └───css
-│   │       │       ├───index
-│   │       │       └───readers
-│   │       └───templates
-│   │           ├───books
-│   │           ├───lendings
-│   │           └───readers
-│   └───test
-│       └───java
-│           └───ru
-│               └───study
-│                   └───my_project
+├───src  
+│   ├───main  
+│   │   ├───java  
+│   │   │   └───ru  
+│   │   │       └───study  
+│   │   │           └───my_project   
+│   │   │               ├───controller  
+│   │   │               ├───model  
+│   │   │               ├───repository  
+│   │   │               └───service  
+│   │   └───resources  
+│   │       ├───static  
+│   │       │   └───css  
+│   │       │       ├───index  
+│   │       │       └───readers  
+│   │       └───templates  
+│   │           ├───books  
+│   │           ├───lendings  
+│   │           └───readers  
+│   └───test  
+│       └───java  
+│           └───ru  
+│               └───study  
+│                   └───my_project  
 
    
