@@ -8,3 +8,32 @@
   - `Book`: комбинация `author + name + publishingHouse`  
   - `Reader`: комбинация `firstName + lastName + dateOfBirth`  
   - `BookLending`: комбинация `reader + book + dateOfIssue`  
+
+
+# Структура проекта
+├───src
+│   ├───main
+│   │   ├───java
+│   │   │   └───ru
+│   │   │       └───study
+│   │   │           └───my_project
+│   │   │               ├───controller
+│   │   │               ├───model
+│   │   │               ├───repository
+│   │   │               └───service
+│   │   └───resources
+│   │       ├───static
+│   │       │   └───css
+│   │       │       ├───index
+│   │       │       └───readers
+│   │       └───templates
+│   │           ├───books
+│   │           ├───lendings
+│   │           └───readers
+│   └───test
+│       └───java
+│           └───ru
+│               └───study
+│                   └───my_project
+
+   
